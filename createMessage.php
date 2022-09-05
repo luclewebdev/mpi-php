@@ -1,6 +1,6 @@
 <?php
 
-
+require_once "core/templibs/toolsInAMess.php";
 
 
 $messageContent = null;
@@ -13,12 +13,9 @@ if(!empty($_POST['content'])){
 
 if($messageContent){
 
+    require_once "core/templibs/db.php";
 
-    $pdo = new PDO("mysql:host=localhost;dbname=messagerie;charset=utf8", "jeanluc", "Jeanluc*22",[
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
-
+    $pdo = getPdo();
 
 
     $requete = $pdo->prepare("INSERT INTO messages (content) VALUES (:content)");
@@ -28,8 +25,7 @@ if($messageContent){
     ]);
     $idMessage = $pdo->lastInsertId();
 
-    header('Location: message.php?id='.$idMessage);
-    exit();
+    redirect('message.php?id='.$idMessage);
 
 }
 
@@ -37,12 +33,7 @@ if($messageContent){
 
 
 
-ob_start();
 
-
-require_once "templates/message/create.html.php";
-
-
-$contenuDeLaPage = ob_get_clean();
-
-require_once "templates/layout.html.php";
+render("message/create",[
+    "pageTitle" => 'Nouveau message'
+]);

@@ -1,6 +1,7 @@
 <?php
 //recuperer l'id
-
+require_once "core/templibs/db.php";
+require_once "core/templibs/toolsInAMess.php";
 $id = null;
 
  if(
@@ -13,16 +14,15 @@ $id = null;
  }
 
  if(!$id){
-     header("Location: index.php");
+     redirect("index.php");
 
  }
 
 //se connecter à la db
 
-$pdo = new PDO("mysql:host=localhost;dbname=messagerie;charset=utf8", "jeanluc", "Jeanluc*22",[
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
+
+
+$pdo = getPdo();
 
 
 //verifier qu'il existe bien
@@ -45,4 +45,4 @@ if($message){
 
 //dans tous les cas, rediriger vers l'accueil (index.php)
 
-header("Location: index.php");
+redirect("index.php");
