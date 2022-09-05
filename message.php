@@ -6,12 +6,19 @@ $pdo = new PDO("mysql:host=localhost;dbname=messagerie;charset=utf8", "jeanluc",
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
 
-$id=2;
 
-$requete = $pdo->prepare("SELECT * FROM messages WHERE id = :maVariable");
+$id=$_GET['id'];
+
+$requete = $pdo->prepare("SELECT * FROM messages WHERE id = :id");
+
+
+
+
+
+
 
 $requete->execute([
-    "maVariable"=>$id
+    "id"=>$id
 ]);
 
     $message = $requete->fetch();
