@@ -1,7 +1,7 @@
 <?php
 
 
-// recuperer le fichier contenant pdo
+namespace Models;
 
 
 

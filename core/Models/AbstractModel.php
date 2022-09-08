@@ -1,5 +1,12 @@
 <?php
+
+
+namespace Models;
+
 require_once "core/templibs/db.php";
+
+
+
 
 abstract class AbstractModel
 {
