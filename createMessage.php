@@ -1,32 +1,18 @@
 <?php
 
-require_once "core/templibs/toolsInAMess.php";
-require_once "core/Models/Message.php";
+
+require_once "core/Controllers/Message.php";
 
 
-$messageContent = null;
+$messageController = new \Controllers\Message();
 
-if(!empty($_POST['content'])){
-
-
-    $messageContent = htmlspecialchars($_POST['content']) ;
-}
-
-if($messageContent){
-
-    $modelMessage = new Message();
-
-    $idMessage = $modelMessage->save($messageContent);
-
-    redirect('message.php?id='.$idMessage);
-
-}
+$messageController->new();
 
 
 
 
 
 
-render("message/create",[
-    "pageTitle" => 'Nouveau message'
-]);
+
+
+

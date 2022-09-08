@@ -21,7 +21,7 @@ class Message extends AbstractController
 
         $messages = $this->defaultModel->findAll();
 
-        render("message/index",[
+        return $this->render("message/index",[
             "pageTitle" => 'Accueil',
             "messages" => $messages
         ]);
@@ -36,19 +36,126 @@ class Message extends AbstractController
         $message = $this->defaultModel->find($id);
 
 
-        render("message/show",[
+        return $this->render("message/show",[
             "pageTitle" => "message n°{$message['id']}",
             "message" => $message
         ]);
 
     }
 
-    // remove
+    public function remove()
+{
+                $id = null;
+
+                if(
+                    !empty($_GET['id'])
+                    &&
+                    ctype_digit($_GET['id'])
+
+                ) {
+                    $id=$_GET['id'];
+                }
+
+                if(!$id){
+                    return $this->redirect("index.php");
+
+                }
 
 
-    // new
 
-    
-    //change
+
+    $message = $this->defaultModel->find($id);
+
+    if($message){
+        $this->defaultModel->delete($id);
+
+    }
+
+
+
+   return $this->redirect("index.php");
+
+
+}
+
+
+    public function new()
+    {
+        $messageContent = null;
+
+        if(!empty($_POST['content'])){
+
+
+            $messageContent = htmlspecialchars($_POST['content']) ;
+        }
+
+        if($messageContent){
+
+
+            $idMessage = $this->defaultModel->save($messageContent);
+
+            return $this->redirect('message.php?id='.$idMessage);
+
+        }
+
+
+
+
+
+
+        return $this->render("message/create",[
+            "pageTitle" => 'Nouveau message'
+        ]);
+
+
+    }
+
+    public function change()
+    {
+
+        $id=$_GET['id'];
+
+
+
+
+        $message = $this->defaultModel->find($id);
+
+
+        if(!$message)
+        {
+            redirect('index.php');
+        }
+
+        $messageContent = null;
+
+        if(!empty($_POST['content'])){
+
+
+            $messageContent = htmlspecialchars($_POST['content']) ;
+        }
+
+        if($messageContent){
+
+
+
+
+            $this->defaultModel->edit($messageContent, $message['id']);
+
+
+            redirect('message.php?id='.$message['id']);
+
+
+        }
+
+
+
+
+
+        return $this->render("message/edit",[
+            "pageTitle" => "Editer le message n°{$message['id']}",
+            "message" => $message
+        ]);
+
+    }
 
 }
