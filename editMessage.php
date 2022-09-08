@@ -1,29 +1,24 @@
 <?php
-require_once "core/templibs/db.php";
+
+
 require_once "core/templibs/toolsInAMess.php";
-$pdo = getPdo();
+require_once "core/Models/Message.php";
+
 
 
 $id=$_GET['id'];
 
-$requete = $pdo->prepare("SELECT * FROM messages WHERE id = :id");
+
+$modelMessage = new Message();
 
 
-
-
-$requete->execute([
-    "id"=>$id
-]);
-
-$message = $requete->fetch();
+$message = $modelMessage->find($id);
 
 
 if(!$message)
 {
     redirect('index.php');
 }
-
-
 
 $messageContent = null;
 
@@ -38,16 +33,11 @@ if($messageContent){
 
 
 
-    $requete = $pdo->prepare("UPDATE messages SET content = :content WHERE id = :message_id");
-
-    $requete->execute([
-        "content"=> $messageContent,
-        "message_id" => $message['id']
-    ]);
+$modelMessage->edit($messageContent, $message['id']);
 
 
-    header('Location: message.php?id='.$message['id']);
-    exit();
+   redirect('message.php?id='.$message['id']);
+
 
 }
 

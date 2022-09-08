@@ -1,6 +1,7 @@
 <?php
 
 require_once "core/templibs/toolsInAMess.php";
+require_once "core/Models/Message.php";
 
 
 $messageContent = null;
@@ -13,17 +14,9 @@ if(!empty($_POST['content'])){
 
 if($messageContent){
 
-    require_once "core/templibs/db.php";
+    $modelMessage = new Message();
 
-    $pdo = getPdo();
-
-
-    $requete = $pdo->prepare("INSERT INTO messages (content) VALUES (:content)");
-
-    $requete->execute([
-        "content"=> $messageContent
-    ]);
-    $idMessage = $pdo->lastInsertId();
+    $idMessage = $modelMessage->save($messageContent);
 
     redirect('message.php?id='.$idMessage);
 

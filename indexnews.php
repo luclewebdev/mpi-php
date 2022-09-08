@@ -3,12 +3,12 @@
 // se connecter à la DB
 
 
-require_once "core/Models/Message.php";
+require_once "core/Models/News.php";
 
 
-$modelMessage = new Message();
+$modelNews = new News();
 
-$messages = $modelMessage->findAll();
+$news = $modelNews->findAll();
 
     // var_dump($messages);
 
@@ -18,9 +18,9 @@ $messages = $modelMessage->findAll();
 
 require_once "core/templibs/toolsInAMess.php";
 
-render("message/index",[
+render("news/index",[
     "pageTitle" => 'Accueil',
-    "messages" => $messages
+    "news" => $news
 ])
 
 

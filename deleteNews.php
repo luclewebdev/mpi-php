@@ -2,7 +2,7 @@
 
 require_once "core/templibs/toolsInAMess.php";
 
-require_once "core/Models/Message.php";
+require_once "core/Models/News.php";
 
 
 //recuperer l'id
@@ -24,7 +24,7 @@ $id = null;
 
 //verifier qu'il existe bien
 
-$modelMessage = new Message();
+$modelMessage = new News();
 
 $message = $modelMessage->find($id);
 
@@ -37,4 +37,4 @@ if($message){
 
 //dans tous les cas, rediriger vers l'accueil (index.php)
 
-redirect("index.php");
+redirect("indexnews.php");

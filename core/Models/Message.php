@@ -3,18 +3,53 @@
 
 // recuperer le fichier contenant pdo
 
-class Message
+
+
+require_once "core/Models/AbstractModel.php";
+
+
+class Message extends AbstractModel
+{
+
+ protected $tableName = "messages";
+
+
+
+
+
+public function save($messageContent)
 {
 
 
-    // le stocker dans une propriété protegee
 
-    // instancier cette propriété par son constructeur
+    $requete = $this->pdo->prepare("INSERT INTO {$this->tableName} (content) VALUES (:content)");
+
+    $requete->execute([
+        "content"=> $messageContent
+    ]);
+    $idMessage = $this->pdo->lastInsertId();
+
+    return $idMessage;
+}
+
+public function edit($messageContent, $id ){
 
 
-    // field par colonne sql + getters et setters
 
-    //a partir de la, on peut regler PDO a la connection en mode FETCH_OBJ
+
+    $requete = $this->pdo->prepare("UPDATE {$this->tableName} SET content = :content WHERE id = :message_id");
+
+    $requete->execute([
+        "content"=> $messageContent,
+        "message_id" => $id
+    ]);
+}
+
+
+
+
+
+
 
 
 }
