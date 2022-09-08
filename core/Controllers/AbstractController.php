@@ -2,8 +2,6 @@
 
 namespace Controllers;
 
-require_once "core/App/Response.php";
-require_once "core/App/View.php";
 
 
 class AbstractController

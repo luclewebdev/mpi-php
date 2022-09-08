@@ -5,7 +5,6 @@ namespace Models;
 
 
 
-require_once "core/Models/AbstractModel.php";
 
 
 class Message extends AbstractModel

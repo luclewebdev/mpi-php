@@ -3,7 +3,7 @@
 
 namespace Models;
 
-require_once "core/templibs/db.php";
+
 
 
 
@@ -21,7 +21,7 @@ abstract class AbstractModel
     public function __construct()
     {
 
-        $this->pdo = getPdo();
+        $this->pdo = \Database\PdoMySQL::getPdo();
 
     }
 

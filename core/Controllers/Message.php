@@ -3,8 +3,6 @@
 namespace Controllers;
 
 
-require_once "core/Models/Message.php";
-require_once "core/Controllers/AbstractController.php";
 
 
 

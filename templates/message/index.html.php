@@ -4,7 +4,7 @@
 foreach ($messages as $message): ?>
     <hr>
     <p><?php  echo $message->getContent(); ?></p>
-    <a href="message.php?id=<?= $message->getId() ?>">Lire</a>
+    <a href="?type=message&action=show&id=<?= $message->getId() ?>">Lire</a>
     <hr>
 
 <?php endforeach;
