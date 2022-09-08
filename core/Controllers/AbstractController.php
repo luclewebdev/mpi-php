@@ -16,9 +16,9 @@ class AbstractController
         $this->defaultModel = new $this->defaultModelName();
     }
 
-    public function redirect(?array $params = null)
+    public function redirect(string $url)
     {
-        return \App\Response::redirect($params);
+        return \App\Response::redirect($url);
     }
 
     public function render(string $nomDeTemplate, array $donneesDeLaPage)

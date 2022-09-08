@@ -54,7 +54,7 @@ class Message extends AbstractController
                 }
 
                 if(!$id){
-                    return $this->redirect();
+                    return $this->redirect("index.php");
 
                 }
 
@@ -70,7 +70,7 @@ class Message extends AbstractController
 
 
 
-   return $this->redirect();
+   return $this->redirect("index.php");
 
 
 }
@@ -93,9 +93,7 @@ class Message extends AbstractController
 
             $idMessage = $this->defaultModel->save($message);
 
-            return $this->redirect(["type"=>"message",
-                                    "action"=>"show",
-                                    "id"=>$idMessage]);
+            return $this->redirect('message.php?id='.$idMessage);
 
         }
 
@@ -124,7 +122,7 @@ class Message extends AbstractController
 
         if(!$message)
         {
-            return $this->redirect();
+            return $this->redirect('index.php');
         }
 
         $messageContent = null;
@@ -143,11 +141,7 @@ class Message extends AbstractController
             $this->defaultModel->edit($message);
 
 
-            return $this->redirect([
-                "type"=>"message",
-                "action"=>"show",
-                "id"=>$message->getId()
-            ]);
+            return $this->redirect('message.php?id='.$message->getId());
 
 
         }

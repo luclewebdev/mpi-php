@@ -1,4 +1,4 @@
-<a href ="?type=message&action=new">Nouveau message</a>
+<a href ="createMessage.php">Nouveau message</a>
 
 <?php
 foreach ($messages as $message): ?>
