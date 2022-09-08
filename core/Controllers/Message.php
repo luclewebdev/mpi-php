@@ -5,7 +5,6 @@ namespace Controllers;
 
 require_once "core/Models/Message.php";
 require_once "core/Controllers/AbstractController.php";
-require_once "core/templibs/toolsInAMess.php";
 
 
 
@@ -37,7 +36,7 @@ class Message extends AbstractController
 
 
         return $this->render("message/show",[
-            "pageTitle" => "message n°{$message['id']}",
+            "pageTitle" => "message n°{$message->getId()}",
             "message" => $message
         ]);
 
@@ -67,7 +66,7 @@ class Message extends AbstractController
     $message = $this->defaultModel->find($id);
 
     if($message){
-        $this->defaultModel->delete($id);
+        $this->defaultModel->delete($message);
 
     }
 
@@ -91,8 +90,10 @@ class Message extends AbstractController
 
         if($messageContent){
 
+            $message = new \Models\Message();
+            $message->setContent($messageContent);
 
-            $idMessage = $this->defaultModel->save($messageContent);
+            $idMessage = $this->defaultModel->save($message);
 
             return $this->redirect('message.php?id='.$idMessage);
 
@@ -123,7 +124,7 @@ class Message extends AbstractController
 
         if(!$message)
         {
-            redirect('index.php');
+            return $this->redirect('index.php');
         }
 
         $messageContent = null;
@@ -136,13 +137,13 @@ class Message extends AbstractController
 
         if($messageContent){
 
+            $message->setContent($messageContent);
 
 
+            $this->defaultModel->edit($message);
 
-            $this->defaultModel->edit($messageContent, $message['id']);
 
-
-            redirect('message.php?id='.$message['id']);
+            return $this->redirect('message.php?id='.$message->getId());
 
 
         }
@@ -152,7 +153,7 @@ class Message extends AbstractController
 
 
         return $this->render("message/edit",[
-            "pageTitle" => "Editer le message n°{$message['id']}",
+            "pageTitle" => "Editer le message n°{$message->getId()}",
             "message" => $message
         ]);
 

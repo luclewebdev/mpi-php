@@ -33,14 +33,16 @@ abstract class AbstractModel
 
         $requete = $this->pdo->query("SELECT * FROM {$this->tableName}");
 
-        $elements = $requete->fetchAll();
+        $elements = $requete->fetchAll(\PDO::FETCH_CLASS, get_class($this));
+
 
 
         return $elements;
-
     }
 
-    public function find($id){
+
+
+    public function find(int $id){
 
 
 
@@ -52,19 +54,22 @@ abstract class AbstractModel
             "id"=>$id
         ]);
 
+        $requete->setFetchMode(\PDO::FETCH_CLASS, get_class($this));
+
         $element = $requete->fetch();
 
         return $element;
+
     }
 
-    public function delete($id){
+    public function delete(Message $message){
 
 
 
 
         $requeteSuppr = $this->pdo->prepare("DELETE FROM {$this->tableName} WHERE id = :id");
 
-        $requeteSuppr->execute(["id"=>$id]);
+        $requeteSuppr->execute(["id"=>$message->getId()]);
     }
 
 
